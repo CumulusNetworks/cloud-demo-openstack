@@ -1,0 +1,43 @@
+---
+- hosts: leafs
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - ifupdown2
+    - quagga
+- hosts: spines
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - ifupdown2
+    - quagga
+- hosts: servers
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - ifupdown
+    - quagga-roh
+- hosts: server01
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - mysql
+    - rabbitmq
+    - memcached
+    - openstack-keystone
+    - openstack-glance
+    - openstack-neutron-controller
+    - openstack-nova-controller
+    - openstack-horizon
+    - openstack-initial-config
+- hosts: server02,server03,server04
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - openstack-neutron-compute
+    - openstack-nova-compute

@@ -1,0 +1,18 @@
+
+# Install required packages
+- name: install packages
+  apt: pkg={{item}} state=present
+  with_items:
+    - mysql-server-5.7
+    - mysql-client-5.7
+    - python-mysqldb
+
+- name: configure mysql to run on all ports.
+  copy: src=mysqld.cnf dest=/etc/mysql/mysql.conf.d/mysqld.cnf
+  notify: restart mysql
+
+- name: flush handlers in case of changed config
+  meta: flush_handlers
+
+- name: make sure mysql is running
+  service: name=mysql state=started enabled=true

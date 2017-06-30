@@ -1,0 +1,21 @@
+{% set intvars = interfaces[ansible_hostname] %}
+{% set neighborvars = intvars['neighbors'] %}
+# /etc/network/interfaces template for servers ({{ansible_hostname}})
+# Created by Ansible
+
+auto lo
+iface lo inet loopback
+
+auto lo:0
+iface lo:0 inet static
+    address {{ intvars.loopback }}/32
+
+{% for neighbor in intvars.neighbors %}
+auto {{ neighbor }}
+iface {{ neighbor }} inet static
+    address {{ intvars.loopback }}/32
+{% endfor %}
+
+
+auto eth0
+iface eth0 inet dhcp

@@ -1,0 +1,40 @@
+
+# Install required packages
+- name: get the mitaka packages
+  apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/mitaka main' state=present
+
+- name: install keyring
+  apt: pkg={{item}} state=present
+  with_items:
+    - ubuntu-cloud-keyring
+
+- name: install packages
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+    - neutron-linuxbridge-agent
+    - python-openstackclient
+    - neutron-l3-agent
+
+- name: neutron config files
+  template: src={{item}}.j2 dest=/etc/neutron/{{item}}
+  with_items:
+      - neutron.conf
+  notify: restart neutron
+
+- name: ml2 config files
+  template: src={{item}}.j2 dest=/etc/neutron/plugins/ml2/{{item}}
+  with_items:
+      - linuxbridge_agent.ini
+  notify: restart neutron
+
+- name: flush handlers in case of changed config
+  meta: flush_handlers
+
+- name: start neutron compute
+  service: name={{ item }} state=started enabled=true
+  with_items:
+      - neutron-linuxbridge-agent
+      - neutron-l3-agent
+
+- name: wait for neutron to wake up
+  pause: seconds=10

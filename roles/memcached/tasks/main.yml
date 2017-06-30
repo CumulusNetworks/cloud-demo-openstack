@@ -1,0 +1,19 @@
+
+# Install required packages
+- name: install packages
+  apt: pkg={{item}} state=present
+  with_items:
+    - memcached
+    - python-memcache
+
+- name: memcached config files
+  template: src={{item}}.j2 dest=/etc/{{item}}
+  with_items:
+      - memcached.conf
+  notify: restart memcached
+
+- name: flush handlers in case of changed config
+  meta: flush_handlers
+
+- name: make sure memcached is running
+  service: name=memcached state=started

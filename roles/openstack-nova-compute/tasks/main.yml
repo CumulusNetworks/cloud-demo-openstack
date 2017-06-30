@@ -1,0 +1,33 @@
+
+# Install required packages
+- name: get the mitaka packages
+  apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/mitaka main' state=present
+
+- name: install keyring
+  apt: pkg={{item}} state=present
+  with_items:
+    - ubuntu-cloud-keyring
+
+- name: install packages
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+    - nova-compute
+    - python-openstackclient
+
+- name: nova config files
+  template: src={{item}}.j2 dest=/etc/nova/{{item}}
+  with_items:
+      - nova.conf
+      - nova-compute.conf
+  notify: restart nova compute
+
+- name: flush handlers in case of changed config
+  meta: flush_handlers
+
+- name: start nova compute
+  service: name={{ item }} state=started enabled=true
+  with_items:
+      - nova-compute
+
+- name: wait for nova to wake up
+  pause: seconds=10
