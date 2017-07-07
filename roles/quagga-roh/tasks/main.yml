@@ -29,6 +29,7 @@
   command: ifdown {{item}}
   with_items:
     - lo
+    - lo:0
     - eth1
     - eth2
 
@@ -36,5 +37,6 @@
   command: ifup {{item}}
   with_items:
     - lo
+    - lo:0
     - eth1
     - eth2
