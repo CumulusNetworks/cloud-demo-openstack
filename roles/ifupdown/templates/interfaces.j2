@@ -5,9 +5,10 @@
 
 auto lo
 iface lo inet loopback
+    post-down ip addr dev lo flush
 
-auto lo:0
-iface lo:0 inet static
+auto lo
+iface lo inet static
     address {{ intvars.loopback }}/32
 
 {% for neighbor in intvars.neighbors %}
