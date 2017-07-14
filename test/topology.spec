@@ -15,7 +15,7 @@ network oob-mgmt-server eth0 10.255.0.1 255.255.0.0 public
 service oob-mgmt-server ssh 10.255.0.1 22 TCP public
 service oob-mgmt-server http 10.255.0.1 80 TCP public
 service oob-mgmt-server https 10.255.0.1 443 TCP public
-service oob-mgmt-server ssh 10.255.0.1 1337 TCP public
+service oob-mgmt-server http2 10.255.0.1 1337 TCP public
 service oob-mgmt-server novnc 10.255.0.1 6080 TCP public
 
 network oob-mgmt-server eth1 192.168.0.254 255.255.0.0
