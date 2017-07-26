@@ -20,3 +20,7 @@ ssh server01 ". demo-openrc; openstack ip floating create provider"
 ssh server01 ". demo-openrc; openstack ip floating add 192.168.0.103 cirros02"
 sleep 60
 ssh server01 ping 192.168.0.103 -c 1
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j DNAT --to 192.168.0.31:80
+sudo iptables -A FORWARD -p tcp -d 192.168.0.31 --dport 80 -j ACCEPT
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 6080 -j DNAT --to 192.168.0.31:6080
+sudo iptables -A FORWARD -p tcp -d 192.168.0.31 --dport 6080 -j ACCEPT
