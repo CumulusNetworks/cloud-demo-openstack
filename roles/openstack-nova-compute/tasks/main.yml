@@ -8,6 +8,9 @@
   with_items:
     - ubuntu-cloud-keyring
 
+- name: get public IP
+  ipify_facts:
+
 - name: install packages
   apt: pkg={{item}} state=present update_cache=yes
   with_items:
