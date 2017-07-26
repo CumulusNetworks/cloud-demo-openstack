@@ -27,7 +27,7 @@ lock_path = /var/lib/nova/tmp
 enabled = True
 vncserver_listen = 0.0.0.0
 vncserver_proxyclient_address = $my_ip
-novncproxy_base_url = http://{% if openstack.vagrant_novnc_hack %}localhost{% else %}controller{% endif %}:6080/vnc_auto.html
+novncproxy_base_url = http://{% if public_ip %}{{public_ip}}{% else %}localhost{% endif %}:6080/vnc_auto.html
 
 
 [oslo_messaging_rabbit]
