@@ -98,7 +98,7 @@ openstack:
         end: "192.168.0.150"
         gateway: "192.168.0.254"
     admin_token: "ac014aaa2beb079192be"
-    admin_password: "CumulusLinux"
+    admin_password: "admin"
     demo_password: "demo"
     vagrant_novnc_hack: true
     args: "--os-token ac014aaa2beb079192be --os-url http://controller:35357/v3 --os-identity-api-version 3"
