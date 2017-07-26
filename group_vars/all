@@ -102,7 +102,7 @@ openstack:
     demo_password: "demo"
     vagrant_novnc_hack: true
     args: "--os-token ac014aaa2beb079192be --os-url http://controller:35357/v3 --os-identity-api-version 3"
-    admin_credentials: "--os-project-domain-name default --os-user-domain-name default --os-project-name admin --os-username admin --os-password CumulusLinux --os-auth-url http://controller:35357/v3 --os-identity-api-version 3 --os-image-api-version 2"
-    neutron_credentials: "--os-project-domain-name default --os-user-domain-name default --os-project-name admin --os-username admin --os-password CumulusLinux --os-auth-url http://controller:35357/v3"
+    admin_credentials: "--os-project-domain-name default --os-user-domain-name default --os-project-name admin --os-username admin --os-password admin --os-auth-url http://controller:35357/v3 --os-identity-api-version 3 --os-image-api-version 2"
+    neutron_credentials: "--os-project-domain-name default --os-user-domain-name default --os-project-name admin --os-username admin --os-password admin --os-auth-url http://controller:35357/v3"
     demo_credentials:  "--os-project-domain-name default --os-user-domain-name default --os-project-name demo --os-username demo --os-password demo --os-auth-url http://controller:35357/v3 --os-identity-api-version 3 --os-image-api-version 2"
     demo_neutron_credentials:  "--os-project-domain-name default --os-user-domain-name default --os-project-name demo --os-username demo --os-password demo --os-auth-url http://controller:35357/v3"
